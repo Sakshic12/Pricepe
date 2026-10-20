@@ -1,0 +1,1137 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PricePe - Smart Shopping</title>
+
+<style>
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --pink: #ff6b9a;
+  --light-pink: #fff0f5;
+  --purple: #8875e8;
+  --dark: #30283d;
+  --muted: #777184;
+  --white: #ffffff;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  background: #fffafd;
+  color: var(--dark);
+}
+
+header {
+  background: white;
+  padding: 18px 7%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+  flex-wrap: wrap;
+  box-shadow: 0 3px 15px #00000008;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.logo {
+  font-size: 28px;
+  font-weight: bold;
+  color: var(--pink);
+}
+
+.logo span {
+  color: var(--purple);
+}
+
+nav {
+  display: flex;
+  gap: 18px;
+  flex-wrap: wrap;
+}
+
+nav a {
+  text-decoration: none;
+  color: var(--dark);
+  font-size: 14px;
+}
+
+nav a:hover {
+  color: var(--pink);
+}
+
+.hero {
+  text-align: center;
+  padding: 65px 20px;
+  background: linear-gradient(135deg, #fff0f5, #f1edff);
+}
+
+.hero h1 {
+  font-size: clamp(30px, 5vw, 48px);
+  margin-bottom: 15px;
+}
+
+.hero h1 span {
+  color: var(--pink);
+}
+
+.hero p {
+  color: var(--muted);
+  margin-bottom: 25px;
+  line-height: 1.6;
+}
+
+.search-box {
+  display: flex;
+  max-width: 580px;
+  margin: auto;
+  background: white;
+  border-radius: 30px;
+  padding: 6px;
+  box-shadow: 0 5px 25px #8875e822;
+}
+
+.search-box input {
+  flex: 1;
+  min-width: 0;
+  border: none;
+  outline: none;
+  padding: 13px 18px;
+  font-size: 15px;
+  background: transparent;
+}
+
+.search-box button,
+.primary-btn {
+  border: none;
+  background: var(--pink);
+  color: white;
+  padding: 13px 23px;
+  border-radius: 25px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.search-box button:hover,
+.primary-btn:hover {
+  background: #ed4c82;
+}
+
+.features {
+  display: flex;
+  justify-content: center;
+  gap: 35px;
+  flex-wrap: wrap;
+  padding: 22px;
+  background: white;
+  color: var(--muted);
+  font-size: 14px;
+}
+
+section.products-section {
+  padding: 45px 7%;
+}
+
+.section-heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 15px;
+  flex-wrap: wrap;
+  margin-bottom: 25px;
+}
+
+.section-heading h2 {
+  font-size: 27px;
+}
+
+.section-heading p {
+  color: var(--muted);
+  margin-top: 7px;
+  font-size: 14px;
+}
+
+.categories {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-bottom: 25px;
+}
+
+.category-btn {
+  border: 1px solid #f0dce6;
+  padding: 10px 17px;
+  border-radius: 25px;
+  background: white;
+  cursor: pointer;
+  color: var(--dark);
+}
+
+.category-btn.active,
+.category-btn:hover {
+  background: var(--pink);
+  color: white;
+  border-color: var(--pink);
+}
+
+.product-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 22px;
+}
+
+.product-card {
+  background: white;
+  border-radius: 18px;
+  overflow: hidden;
+  border: 1px solid #f5e8ef;
+  transition: 0.25s;
+  position: relative;
+}
+
+.product-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 12px 28px #4a294010;
+}
+
+.product-image {
+  height: 210px;
+  background: #fff2f7;
+  position: relative;
+}
+
+.product-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.heart-btn {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  border: none;
+  background: white;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  cursor: pointer;
+  font-size: 19px;
+}
+
+.heart-btn.saved {
+  color: #ff3f7b;
+}
+
+.product-info {
+  padding: 16px;
+}
+
+.brand {
+  color: var(--purple);
+  font-size: 12px;
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+}
+
+.product-info h3 {
+  font-size: 16px;
+  margin: 9px 0;
+  min-height: 38px;
+  line-height: 1.4;
+}
+
+.category-label {
+  color: var(--muted);
+  font-size: 12px;
+}
+
+.price {
+  font-size: 23px;
+  font-weight: bold;
+  margin: 12px 0 4px;
+}
+
+.demo-label {
+  font-size: 11px;
+  color: #9a7185;
+}
+
+.store-links {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  margin-top: 14px;
+}
+
+.store-links a {
+  text-align: center;
+  padding: 9px 4px;
+  font-size: 12px;
+  text-decoration: none;
+  border-radius: 8px;
+  background: #fff0f5;
+  color: #c83f72;
+  font-weight: bold;
+}
+
+.store-links a:hover {
+  background: var(--pink);
+  color: white;
+}
+
+.compare-btn {
+  width: 100%;
+  margin-top: 9px;
+  padding: 9px;
+  border: 1px solid #d9d0ff;
+  background: #f6f3ff;
+  color: #6954c5;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.compare-btn.selected {
+  background: var(--purple);
+  color: white;
+}
+
+.empty-message {
+  grid-column: 1 / -1;
+  text-align: center;
+  padding: 45px 10px;
+  color: var(--muted);
+}
+
+.info-section {
+  padding: 45px 7%;
+  background: #f8f5ff;
+  text-align: center;
+}
+
+.info-section h2 {
+  font-size: 27px;
+  margin-bottom: 15px;
+}
+
+.info-section p {
+  max-width: 650px;
+  margin: auto;
+  line-height: 1.8;
+  color: var(--muted);
+}
+
+.compare-bar {
+  display: none;
+  position: fixed;
+  bottom: 18px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: min(92%, 650px);
+  background: var(--dark);
+  color: white;
+  padding: 15px 18px;
+  border-radius: 15px;
+  z-index: 20;
+  box-shadow: 0 8px 25px #0003;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.compare-bar button {
+  padding: 10px 15px;
+  border: none;
+  border-radius: 9px;
+  cursor: pointer;
+  background: var(--pink);
+  color: white;
+  font-weight: bold;
+}
+
+footer {
+  background: #30283d;
+  color: white;
+  text-align: center;
+  padding: 28px 15px;
+  line-height: 1.8;
+}
+
+footer span {
+  color: #ff8eb2;
+}
+
+@media (max-width: 1000px) {
+  .product-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 700px) {
+  header {
+    padding: 16px 5%;
+  }
+
+  nav {
+    gap: 12px;
+  }
+
+  .product-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+  }
+
+  section.products-section {
+    padding: 32px 4%;
+  }
+
+  .product-image {
+    height: 160px;
+  }
+
+  .product-info {
+    padding: 12px;
+  }
+
+  .product-info h3 {
+    font-size: 14px;
+  }
+
+  .price {
+    font-size: 20px;
+  }
+
+  .hero {
+    padding: 48px 15px;
+  }
+}
+
+@media (max-width: 370px) {
+  .product-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .product-image {
+    height: 230px;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <div class="logo">Price<span>Pe</span> ♡</div>
+
+  <nav>
+    <a href="#home">Home</a>
+    <a href="#products">Products</a>
+    <a href="#about">About</a>
+    <a href="#wishlist" onclick="showWishlist(event)">Wishlist ♡</a>
+  </nav>
+</header>
+
+<section class="hero" id="home">
+  <h1>Shop Smart, Save <span>More!</span> ✨</h1>
+  <p>Discover your favourite products and explore shopping options<br>
+  all in one cute little place.</p>
+
+  <div class="search-box">
+    <input
+      type="text"
+      id="searchInput"
+      placeholder="Search clothes, skincare, gadgets..."
+      aria-label="Search products"
+    >
+    <button onclick="searchProducts()">Search</button>
+  </div>
+</section>
+
+<div class="features">
+  <span>♡ Easy product discovery</span>
+  <span>✦ Multiple shopping stores</span>
+  <span>♧ Compare your choices</span>
+</div>
+
+<section class="products-section" id="products">
+  <div class="section-heading">
+    <div>
+      <h2 id="productHeading">Explore Products 🛍️</h2>
+      <p>Find something you love.</p>
+    </div>
+    <span id="resultCount"></span>
+  </div>
+
+  <div class="categories">
+    <button class="category-btn active" onclick="setCategory('All',this)">All</button>
+    <button class="category-btn" onclick="setCategory('Fashion',this)">Fashion</button>
+    <button class="category-btn" onclick="setCategory('Beauty',this)">Beauty</button>
+    <button class="category-btn" onclick="setCategory('Electronics',this)">Electronics</button>
+    <button class="category-btn" onclick="setCategory('Footwear',this)">Footwear</button>
+    <button class="category-btn" onclick="setCategory('Accessories',this)">Accessories</button>
+    <button class="category-btn" onclick="setCategory('Home',this)">Home</button>
+  </div>
+
+  <div class="product-grid" id="productGrid"></div>
+</section>
+
+<section class="info-section" id="about">
+  <h2>About PricePe 💗</h2>
+  <p>
+    PricePe is a student-made shopping discovery project.
+    Browse different product categories, save favourites and compare
+    products you are interested in. Store buttons open search results
+    so you can explore available listings yourself.
+    Prices shown here are sample demo prices, not live store prices.
+  </p>
+</section>
+
+<div class="compare-bar" id="compareBar">
+  <span id="compareText">0 products selected</span>
+  <button onclick="compareProducts()">Compare Selected</button>
+  <button onclick="clearCompare()">Clear</button>
+</div>
+
+<footer>
+  <h2>Price<span>Pe</span> ♡</h2>
+  <p>Made with love for smart shoppers ✨</p>
+  <p>Student project · Demo prices · Verify prices on the store</p>
+  <p>© 2026 PricePe</p>
+</footer>
+
+<script>
+const products = [
+  {
+    name: "Floral Casual Dress",
+    brand: "Style Studio",
+    category: "Fashion",
+    price: 799,
+    image: "https://images.unsplash.com/photo-1515372039744-b8f02a3ae446?auto=format&fit=crop&w=600&q=80",
+    search: "women floral casual dress"
+  },
+  {
+    name: "Classic White T-Shirt",
+    brand: "Basics",
+    category: "Fashion",
+    price: 399,
+    image: "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?auto=format&fit=crop&w=600&q=80",
+    search: "white cotton t shirt"
+  },
+  {
+    name: "Blue Denim Jeans",
+    brand: "Denim Co.",
+    category: "Fashion",
+    price: 999,
+    image: "https://images.unsplash.com/photo-1541099649105-f69ad21f3246?auto=format&fit=crop&w=600&q=80",
+    search: "women blue denim jeans"
+  },
+  {
+    name: "Everyday Kurti",
+    brand: "Ethnic Edit",
+    category: "Fashion",
+    price: 599,
+    image: "https://images.unsplash.com/photo-1583391733956-6c78276477e5?auto=format&fit=crop&w=600&q=80",
+    search: "women cotton kurti"
+  },
+  {
+    name: "Cute Summer Top",
+    brand: "Style Studio",
+    category: "Fashion",
+    price: 449,
+    image: "https://images.unsplash.com/photo-1564257577-7a3d3c8d9c2b?auto=format&fit=crop&w=600&q=80",
+    search: "women cute summer top"
+  },
+  {
+    name: "Pleated Long Skirt",
+    brand: "Everyday Wear",
+    category: "Fashion",
+    price: 699,
+    image: "https://images.unsplash.com/photo-1583496661160-fb5886a0aaaa?auto=format&fit=crop&w=600&q=80",
+    search: "women pleated long skirt"
+  },
+  {
+    name: "Oversized Hoodie",
+    brand: "Comfy Club",
+    category: "Fashion",
+    price: 899,
+    image: "https://images.unsplash.com/photo-1556821840-3a63f95609a7?auto=format&fit=crop&w=600&q=80",
+    search: "oversized hoodie women"
+  },
+  {
+    name: "Casual Shirt",
+    brand: "Urban Wear",
+    category: "Fashion",
+    price: 649,
+    image: "https://images.unsplash.com/photo-1598033129183-c4f50c736f10?auto=format&fit=crop&w=600&q=80",
+    search: "women casual shirt"
+  },
+
+  {
+    name: "Daily Face Moisturizer",
+    brand: "Skin Care",
+    category: "Beauty",
+    price: 299,
+    image: "https://images.unsplash.com/photo-1608248543803-ba4f8c70ae0b?auto=format&fit=crop&w=600&q=80",
+    search: "face moisturizer"
+  },
+  {
+    name: "Gentle Face Cleanser",
+    brand: "Skin Care",
+    category: "Beauty",
+    price: 249,
+    image: "https://images.unsplash.com/photo-1556229010-6c3f2c9ca5f8?auto=format&fit=crop&w=600&q=80",
+    search: "gentle face cleanser"
+  },
+  {
+    name: "Daily Sunscreen",
+    brand: "Sun Care",
+    category: "Beauty",
+    price: 349,
+    image: "https://images.unsplash.com/photo-1556228578-0d85b1a4d571?auto=format&fit=crop&w=600&q=80",
+    search: "daily sunscreen SPF 50"
+  },
+  {
+    name: "Lip Care Balm",
+    brand: "Beauty Basics",
+    category: "Beauty",
+    price: 149,
+    image: "https://images.unsplash.com/photo-1586495777744-4413f21062fa?auto=format&fit=crop&w=600&q=80",
+    search: "lip balm"
+  },
+  {
+    name: "Face Serum",
+    brand: "Glow Lab",
+    category: "Beauty",
+    price: 399,
+    image: "https://images.unsplash.com/photo-1620916566398-39f1143ab7be?auto=format&fit=crop&w=600&q=80",
+    search: "face serum skincare"
+  },
+  {
+    name: "Body Lotion",
+    brand: "Soft Skin",
+    category: "Beauty",
+    price: 279,
+    image: "https://images.unsplash.com/photo-1601049541289-9b1b7bbbfe19?auto=format&fit=crop&w=600&q=80",
+    search: "body lotion"
+  },
+  {
+    name: "Hair Serum",
+    brand: "Hair Care",
+    category: "Beauty",
+    price: 299,
+    image: "https://images.unsplash.com/photo-1600612253971-422e7f7faeb6?auto=format&fit=crop&w=600&q=80",
+    search: "hair serum frizzy hair"
+  },
+  {
+    name: "Sheet Face Mask",
+    brand: "Glow Lab",
+    category: "Beauty",
+    price: 99,
+    image: "https://images.unsplash.com/photo-1596755389378-c31d21fd1273?auto=format&fit=crop&w=600&q=80",
+    search: "sheet face mask"
+  },
+
+  {
+    name: "Wireless Headphones",
+    brand: "Sound Zone",
+    category: "Electronics",
+    price: 1299,
+    image: "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?auto=format&fit=crop&w=600&q=80",
+    search: "wireless headphones"
+  },
+  {
+    name: "Smart Watch",
+    brand: "Tech Time",
+    category: "Electronics",
+    price: 1599,
+    image: "https://images.unsplash.com/photo-1523275335684-37898b6baf30?auto=format&fit=crop&w=600&q=80",
+    search: "smart watch"
+  },
+  {
+    name: "Bluetooth Speaker",
+    brand: "Sound Zone",
+    category: "Electronics",
+    price: 999,
+    image: "https://images.unsplash.com/photo-1608043152269-423dbba4e7e1?auto=format&fit=crop&w=600&q=80",
+    search: "portable bluetooth speaker"
+  },
+  {
+    name: "Wireless Earbuds",
+    brand: "Audio Plus",
+    category: "Electronics",
+    price: 899,
+    image: "https://images.unsplash.com/photo-1606220945770-b5b6c2c55bf1?auto=format&fit=crop&w=600&q=80",
+    search: "wireless earbuds"
+  },
+  {
+    name: "Laptop Backpack",
+    brand: "Tech Carry",
+    category: "Electronics",
+    price: 799,
+    image: "https://images.unsplash.com/photo-1553062407-98eeb64c6a62?auto=format&fit=crop&w=600&q=80",
+    search: "laptop backpack"
+  },
+  {
+    name: "Phone Case",
+    brand: "Mobile Style",
+    category: "Electronics",
+    price: 199,
+    image: "https://images.unsplash.com/photo-1601593346740-925612772716?auto=format&fit=crop&w=600&q=80",
+    search: "mobile phone case"
+  },
+  {
+    name: "Power Bank",
+    brand: "Tech Carry",
+    category: "Electronics",
+    price: 899,
+    image: "https://images.unsplash.com/photo-1609091839311-d5365f9ff1c5?auto=format&fit=crop&w=600&q=80",
+    search: "power bank"
+  },
+  {
+    name: "Computer Mouse",
+    brand: "Desk Tech",
+    category: "Electronics",
+    price: 399,
+    image: "https://images.unsplash.com/photo-1527814050087-3793815479db?auto=format&fit=crop&w=600&q=80",
+    search: "wireless computer mouse"
+  },
+
+  {
+    name: "White Sneakers",
+    brand: "Step Up",
+    category: "Footwear",
+    price: 699,
+    image: "https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&w=600&q=80",
+    search: "white sneakers women"
+  },
+  {
+    name: "Casual Running Shoes",
+    brand: "Active Walk",
+    category: "Footwear",
+    price: 999,
+    image: "https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&w=600&q=80",
+    search: "casual running shoes"
+  },
+  {
+    name: "Everyday Sandals",
+    brand: "Step Up",
+    category: "Footwear",
+    price: 399,
+    image: "https://images.unsplash.com/photo-1562273138-f46be4ebdf33?auto=format&fit=crop&w=600&q=80",
+    search: "women everyday sandals"
+  },
+  {
+    name: "Classic Flats",
+    brand: "Comfy Steps",
+    category: "Footwear",
+    price: 449,
+    image: "https://images.unsplash.com/photo-1543163521-1bf539c55dd2?auto=format&fit=crop&w=600&q=80",
+    search: "women flat shoes"
+  },
+  {
+    name: "Casual Loafers",
+    brand: "Urban Steps",
+    category: "Footwear",
+    price: 799,
+    image: "https://images.unsplash.com/photo-1531310197839-ccf54634509e?auto=format&fit=crop&w=600&q=80",
+    search: "casual loafers women"
+  },
+  {
+    name: "Slip-On Shoes",
+    brand: "Easy Walk",
+    category: "Footwear",
+    price: 599,
+    image: "https://images.unsplash.com/photo-1525966222134-fcfa99b8ae77?auto=format&fit=crop&w=600&q=80",
+    search: "slip on shoes"
+  },
+
+  {
+    name: "Mini Shoulder Bag",
+    brand: "Bag Boutique",
+    category: "Accessories",
+    price: 599,
+    image: "https://images.unsplash.com/photo-1584917865442-de89df76afd3?auto=format&fit=crop&w=600&q=80",
+    search: "women mini shoulder bag"
+  },
+  {
+    name: "Everyday Tote Bag",
+    brand: "Carry Cute",
+    category: "Accessories",
+    price: 399,
+    image: "https://images.unsplash.com/photo-1544816155-12df9643f363?auto=format&fit=crop&w=600&q=80",
+    search: "women tote bag"
+  },
+  {
+    name: "Classic Wrist Watch",
+    brand: "Time Studio",
+    category: "Accessories",
+    price: 899,
+    image: "https://images.unsplash.com/photo-1524592094714-0f0654e20314?auto=format&fit=crop&w=600&q=80",
+    search: "classic wrist watch"
+  },
+  {
+    name: "Sunglasses",
+    brand: "Sunny Days",
+    category: "Accessories",
+    price: 299,
+    image: "https://images.unsplash.com/photo-1511499767150-a48a237f0083?auto=format&fit=crop&w=600&q=80",
+    search: "fashion sunglasses"
+  },
+  {
+    name: "Minimal Necklace",
+    brand: "Tiny Treasures",
+    category: "Accessories",
+    price: 199,
+    image: "https://images.unsplash.com/photo-1611591437281-460bfbe1220a?auto=format&fit=crop&w=600&q=80",
+    search: "minimal necklace women"
+  },
+  {
+    name: "Hair Claw Clips",
+    brand: "Cute Things",
+    category: "Accessories",
+    price: 99,
+    image: "https://images.unsplash.com/photo-1630019852942-f89202989a59?auto=format&fit=crop&w=600&q=80",
+    search: "hair claw clips"
+  },
+  {
+    name: "Everyday Wallet",
+    brand: "Carry Cute",
+    category: "Accessories",
+    price: 349,
+    image: "https://images.unsplash.com/photo-1627123424574-724758594e93?auto=format&fit=crop&w=600&q=80",
+    search: "women wallet"
+  },
+  {
+    name: "Cute Hair Band",
+    brand: "Tiny Treasures",
+    category: "Accessories",
+    price: 79,
+    image: "https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?auto=format&fit=crop&w=600&q=80",
+    search: "women hair band"
+  },
+
+  {
+    name: "Decorative Table Lamp",
+    brand: "Cozy Home",
+    category: "Home",
+    price: 699,
+    image: "https://images.unsplash.com/photo-1507473885765-e6ed057f782c?auto=format&fit=crop&w=600&q=80",
+    search: "decorative table lamp"
+  },
+  {
+    name: "Scented Candle",
+    brand: "Cozy Home",
+    category: "Home",
+    price: 199,
+    image: "https://images.unsplash.com/photo-1603006905003-be475563bc59?auto=format&fit=crop&w=600&q=80",
+    search: "scented candle"
+  },
+  {
+    name: "Decorative Cushion",
+    brand: "Soft Living",
+    category: "Home",
+    price: 299,
+    image: "https://images.unsplash.com/photo-1584100936595-c0654b55a2e2?auto=format&fit=crop&w=600&q=80",
+    search: "decorative cushion cover"
+  },
+  {
+    name: "Ceramic Coffee Mug",
+    brand: "Cozy Home",
+    category: "Home",
+    price: 149,
+    image: "https://images.unsplash.com/photo-1514228742587-6b1558fcca3d?auto=format&fit=crop&w=600&q=80",
+    search: "ceramic coffee mug"
+  },
+  {
+    name: "Plant Pot",
+    brand: "Green Corner",
+    category: "Home",
+    price: 179,
+    image: "https://images.unsplash.com/photo-1485955900006-10f4d324d411?auto=format&fit=crop&w=600&q=80",
+    search: "decorative plant pot"
+  },
+  {
+    name: "Desk Organizer",
+    brand: "Study Space",
+    category: "Home",
+    price: 249,
+    image: "https://images.unsplash.com/photo-1499951360447-b19be8fe80f5?auto=format&fit=crop&w=600&q=80",
+    search: "desk organizer"
+  },
+  {
+    name: "Bedside Storage Basket",
+    brand: "Soft Living",
+    category: "Home",
+    price: 299,
+    image: "https://images.unsplash.com/photo-1593085260707-5377ba37f868?auto=format&fit=crop&w=600&q=80",
+    search: "storage basket home"
+  },
+  {
+    name: "Fairy String Lights",
+    brand: "Cozy Home",
+    category: "Home",
+    price: 199,
+    image: "https://images.unsplash.com/photo-1513506003901-1e6a229e2d15?auto=format&fit=crop&w=600&q=80",
+    search: "fairy string lights"
+  }
+];
+
+const stores = [
+  {
+    name: "Amazon",
+    url: "https://www.amazon.in/s?k="
+  },
+  {
+    name: "Flipkart",
+    url: "https://www.flipkart.com/search?q="
+  },
+  {
+    name: "Myntra",
+    url: "https://www.myntra.com/"
+  },
+  {
+    name: "Meesho",
+    url: "https://www.meesho.com/search?q="
+  }
+];
+
+let selectedCategory = "All";
+let searchText = "";
+let wishlist = [];
+let compareList = [];
+let wishlistMode = false;
+
+function rupees(amount) {
+  return "₹" + amount.toLocaleString("en-IN");
+}
+
+function storeSearchUrl(store, query) {
+  const encoded = encodeURIComponent(query);
+
+  if (store.name === "Myntra") {
+    return "https://www.myntra.com/" + encoded;
+  }
+
+  return store.url + encoded;
+}
+
+function renderProducts() {
+  const grid = document.getElementById("productGrid");
+
+  let filtered = products.filter(product => {
+    const matchesCategory =
+      selectedCategory === "All" ||
+      product.category === selectedCategory;
+
+    const searchTarget =
+      (product.name + " " + product.brand + " " +
+       product.category + " " + product.search).toLowerCase();
+
+    const matchesSearch = searchTarget.includes(searchText);
+
+    const matchesWishlist =
+      !wishlistMode || wishlist.includes(product.name);
+
+    return matchesCategory && matchesSearch && matchesWishlist;
+  });
+
+  document.getElementById("resultCount").textContent =
+    filtered.length + " products";
+
+  if (wishlistMode) {
+    document.getElementById("productHeading").textContent =
+      "Your Wishlist ♡";
+  } else {
+    document.getElementById("productHeading").textContent =
+      selectedCategory === "All"
+        ? "Explore Products 🛍️"
+        : selectedCategory + " Products ✨";
+  }
+
+  if (filtered.length === 0) {
+    grid.innerHTML =
+      '<div class="empty-message">No products found 🥺<br><br>Try another search.</div>';
+    return;
+  }
+
+  grid.innerHTML = filtered.map(product => {
+    const isSaved = wishlist.includes(product.name);
+    const isSelected = compareList.includes(product.name);
+
+    const links = stores.map(store => `
+      <a href="${storeSearchUrl(store, product.search)}"
+         target="_blank"
+         rel="noopener noreferrer">${store.name} ↗</a>
+    `).join("");
+
+    return `
+      <article class="product-card">
+        <div class="product-image">
+          <img
+            src="${product.image}"
+            alt="${product.name}"
+            loading="lazy"
+            onerror="this.onerror=null;this.src='https://placehold.co/600x400/fff0f5/c83f72?text=Product+Photo';"
+          >
+          <button
+            class="heart-btn ${isSaved ? "saved" : ""}"
+            onclick="toggleWishlist('${product.name.replace(/'/g, "\\'")}')"
+            aria-label="Toggle wishlist"
+            title="Save to wishlist"
+          >${isSaved ? "♥" : "♡"}</button>
+        </div>
+
+        <div class="product-info">
+          <div class="brand">${product.brand}</div>
+          <h3>${product.name}</h3>
+          <div class="category-label">${product.category}</div>
+          <div class="price">${rupees(product.price)}</div>
+          <div class="demo-label">Sample demo price · Not live</div>
+
+          <div class="store-links">${links}</div>
+
+          <button
+            class="compare-btn ${isSelected ? "selected" : ""}"
+            onclick="toggleCompare('${product.name.replace(/'/g, "\\'")}')"
+          >${isSelected ? "✓ Added to compare" : "＋ Add to compare"}</button>
+        </div>
+      </article>
+    `;
+  }).join("");
+}
+
+function setCategory(category, button) {
+  selectedCategory = category;
+  wishlistMode = false;
+
+  document.querySelectorAll(".category-btn").forEach(btn => {
+    btn.classList.remove("active");
+  });
+
+  if (button) button.classList.add("active");
+
+  renderProducts();
+}
+
+function searchProducts() {
+  searchText = document.getElementById("searchInput")
+    .value.trim().toLowerCase();
+
+  wishlistMode = false;
+  renderProducts();
+}
+
+document.getElementById("searchInput").addEventListener("input", event => {
+  searchText = event.target.value.trim().toLowerCase();
+  wishlistMode = false;
+  renderProducts();
+});
+
+function toggleWishlist(name) {
+  if (wishlist.includes(name)) {
+    wishlist = wishlist.filter(item => item !== name);
+  } else {
+    wishlist.push(name);
+  }
+
+  renderProducts();
+}
+
+function showWishlist(event) {
+  if (event) event.preventDefault();
+
+  wishlistMode = true;
+  selectedCategory = "All";
+  searchText = "";
+
+  document.getElementById("searchInput").value = "";
+
+  document.querySelectorAll(".category-btn").forEach(btn => {
+    btn.classList.remove("active");
+  });
+
+  document.querySelector('.category-btn').classList.add("active");
+
+  renderProducts();
+  document.getElementById("products").scrollIntoView({
+    behavior: "smooth"
+  });
+}
+
+function toggleCompare(name) {
+  if (compareList.includes(name)) {
+    compareList = compareList.filter(item => item !== name);
+  } else {
+    if (compareList.length >= 3) {
+      alert("You can compare up to 3 products at a time.");
+      return;
+    }
+
+    compareList.push(name);
+  }
+
+  updateCompareBar();
+  renderProducts();
+}
+
+function updateCompareBar() {
+  const bar = document.getElementById("compareBar");
+  const text = document.getElementById("compareText");
+
+  bar.style.display = compareList.length ? "flex" : "none";
+  text.textContent = compareList.length + " product(s) selected";
+}
+
+function compareProducts() {
+  if (compareList.length < 2) {
+    alert("Please select at least 2 products to compare.");
+    return;
+  }
+
+  const selected = products.filter(product =>
+    compareList.includes(product.name)
+  );
+
+  const details = selected.map(product =>
+    product.name + " — " + rupees(product.price) + " (demo price)"
+  ).join("\n");
+
+  alert("Your product comparison:\n\n" + details +
+    "\n\nThese are sample prices, not live store prices.");
+}
+
+function clearCompare() {
+  compareList = [];
+  updateCompareBar();
+  renderProducts();
+}
+
+renderProducts();
+
+
+function searchProducts() {
+  // Get the text entered in the search box
+  const input = document.getElementById("searchInput");
+
+  // Convert the search keyword to lowercase
+  searchText = input.value.trim().toLowerCase();
+
+  // Display matching products
+  wishlistMode = false;
+  renderProducts();
+}
+
+</script>
+
+</body>
+</html>
